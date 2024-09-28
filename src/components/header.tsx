@@ -6,6 +6,8 @@ export const Header = () => {
       sx={{
         flex: "0 1",
         p: 3,
+        borderBottom: 1,
+        borderColor: "divider",
       }}
     >
       <Typography variant="body1">Header</Typography>
