@@ -7,6 +7,14 @@ export const theme = createTheme({
     primary: {
       main: "#4B70F5",
     },
+    secondary: {
+      main: "#D9D9D9",
+    },
+    text: {
+      primary: "#121212",
+      secondary: "#4F4F4F",
+      disabled: "#E4E7F2",
+    },
     background: {
       default: "#4B70F5",
       paper: "#FFFFFF",
@@ -25,6 +33,7 @@ theme.typography = {
     lineHeight: pxToRem(28),
     fontWeight: 600,
     letterSpacing: "0.68px",
+    color: theme.palette.text.primary,
   },
 
   h2: {
@@ -33,6 +42,7 @@ theme.typography = {
     lineHeight: pxToRem(24),
     fontWeight: 600,
     letterSpacing: "0.52px",
+    color: theme.palette.text.primary,
   },
 
   h3: {
@@ -41,6 +51,7 @@ theme.typography = {
     lineHeight: pxToRem(21),
     fontWeight: 600,
     letterSpacing: "0.45px",
+    color: theme.palette.text.primary,
   },
 
   h4: {
@@ -49,6 +60,7 @@ theme.typography = {
     lineHeight: pxToRem(21),
     fontWeight: 600,
     letterSpacing: "0.45px",
+    color: theme.palette.text.primary,
   },
 
   body1: {
@@ -57,6 +69,7 @@ theme.typography = {
     lineHeight: pxToRem(19),
     fontWeight: 500,
     letterSpacing: "0.52px",
+    color: theme.palette.text.primary,
   },
 
   body2: {
@@ -65,6 +78,7 @@ theme.typography = {
     lineHeight: pxToRem(18),
     fontWeight: 400,
     letterSpacing: "0.52px",
+    color: theme.palette.text.primary,
   },
 
   caption: {
@@ -74,5 +88,6 @@ theme.typography = {
     lineHeight: pxToRem(16),
     fontWeight: 300,
     letterSpacing: "0.52px",
+    color: theme.palette.text.primary,
   },
 };

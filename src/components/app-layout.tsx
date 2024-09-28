@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
 import { Header } from "./header";
-import { AppNavigation } from "./app-navigation";
 
 type Props = {
   children: ReactNode;
@@ -14,31 +13,20 @@ export const AppLayout = ({ children }: Props) => {
         width: "100vw",
         height: "100vh",
         display: "flex",
+        flexDirection: "column",
         alignItems: "stretch",
-        justifyContent: "flex-start",
       }}
     >
-      <AppNavigation />
+      <Header />
 
       <Box
         sx={{
-          width: 1,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "stretch",
+          flex: 1,
+          overflow: "auto",
+          p: 3,
         }}
       >
-        <Header />
-
-        <Box
-          sx={{
-            flex: 1,
-            overflow: "auto",
-            p: 3,
-          }}
-        >
-          {children}
-        </Box>
+        {children}
       </Box>
     </Box>
   );
