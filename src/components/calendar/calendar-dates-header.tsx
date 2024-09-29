@@ -1,6 +1,10 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import { CalendarPeriod } from "~/lib/hooks";
-import { CALENDAR_SIZES, calendarItemStyles } from "~/lib/utils";
+import {
+  CALENDAR_SIZES,
+  calendarItemStyles,
+  weeksInGeorgian,
+} from "~/lib/utils";
 
 const CalendarDateItem = ({ dayOfWeek, day }: CalendarPeriod) => {
   return (
@@ -16,7 +20,7 @@ const CalendarDateItem = ({ dayOfWeek, day }: CalendarPeriod) => {
     >
       <Typography variant="h3">{day}</Typography>
       <Typography variant="caption" color="text.secondary">
-        {dayOfWeek}
+        {weeksInGeorgian[dayOfWeek]}
       </Typography>
     </Box>
   );

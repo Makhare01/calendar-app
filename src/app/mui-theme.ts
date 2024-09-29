@@ -23,6 +23,93 @@ export const theme = createTheme({
   },
 });
 
+theme.components = {
+  ...theme.components,
+  MuiTextField: {
+    styleOverrides: {
+      root: {
+        borderRadius: "8px",
+        "& .MuiOutlinedInput-root": {
+          borderRadius: "8px",
+          "& fieldset": {
+            borderColor: theme.palette.text.disabled,
+          },
+          "&:hover fieldset": {
+            borderColor: theme.palette.divider,
+          },
+          "&.Mui-focused fieldset": {
+            borderColor: theme.palette.divider,
+          },
+        },
+        "& .MuiInputBase-input": {
+          fontFamily: FiraGO,
+          fontSize: "14px",
+          color: theme.palette.text.primary,
+        },
+      },
+    },
+  },
+
+  MuiSelect: {
+    styleOverrides: {
+      select: {
+        borderRadius: "8px",
+        display: "flex",
+        alignItems: "center",
+        "&:focus": {
+          borderRadius: "8px",
+        },
+      },
+      icon: {
+        color: theme.palette.text.secondary,
+        fontSize: "24px",
+      },
+      root: {
+        "& .MuiOutlinedInput-notchedOutline": {
+          borderColor: theme.palette.text.disabled,
+        },
+        "&:hover .MuiOutlinedInput-notchedOutline": {
+          borderColor: theme.palette.divider,
+        },
+        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+          borderColor: theme.palette.divider,
+        },
+        borderRadius: "8px",
+        fontFamily: "YourCustomFont, sans-serif",
+        fontSize: "14px",
+        color: theme.palette.text.primary,
+      },
+    },
+  },
+  MuiPaper: {
+    styleOverrides: {
+      root: {
+        boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+        border: 1,
+        borderColor: theme.palette.text.disabled,
+      },
+    },
+  },
+  MuiFormLabel: {
+    styleOverrides: {
+      root: {
+        marginLeft: 8,
+        color: theme.palette.text.primary,
+      },
+    },
+  },
+
+  MuiButton: {
+    styleOverrides: {
+      root: {
+        borderRadius: "8px",
+        fontFamily: FiraGO,
+        fontWeight: 500,
+      },
+    },
+  },
+};
+
 const { pxToRem } = theme.typography;
 
 theme.typography = {

@@ -1,22 +1,35 @@
-import { Box, Divider, Popover, Typography } from "@mui/material";
+import { Box, Divider, IconButton, Popover } from "@mui/material";
 import { getMinutes } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import { CALENDAR_SIZES, calendarItemStyles } from "~/lib/utils";
+import { EventForm } from "./event-form";
+import { IconClose } from "~/app/assets/icons";
 
 type Props = {
+  date: Date;
   daysCount: number;
   day: number;
   hour: number;
   isToday: boolean;
 };
 
-export const CalendarItem = ({ daysCount, day, hour, isToday }: Props) => {
+export const CalendarItem = ({
+  date,
+  daysCount,
+  day,
+  hour,
+  isToday,
+}: Props) => {
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 
   const open = Boolean(anchorEl);
   const currentMinute = isToday ? getMinutes(new Date()) : null;
 
   const ref = useRef<HTMLHRElement | null>(null);
+
+  const onClose = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     if (currentMinute) {
@@ -33,7 +46,7 @@ export const CalendarItem = ({ daysCount, day, hour, isToday }: Props) => {
       <Box
         sx={{
           ...calendarItemStyles,
-          borderBottom: hour === 24 ? 0 : 1, // Disable last border
+          borderBottom: hour === 24 ? 0 : 1,
           borderRight: day === daysCount ? 0 : 1,
           borderColor: "divider",
           cursor: "pointer",
@@ -53,6 +66,7 @@ export const CalendarItem = ({ daysCount, day, hour, isToday }: Props) => {
               borderBottomWidth: 2,
               position: "absolute",
               top: currentMinute,
+              zIndex: 10,
             }}
           />
         )}
@@ -72,9 +86,7 @@ export const CalendarItem = ({ daysCount, day, hour, isToday }: Props) => {
         id={open ? "calendar-item-popover" : undefined}
         open={open}
         anchorEl={anchorEl}
-        onClose={() => {
-          setAnchorEl(null);
-        }}
+        onClose={onClose}
         anchorOrigin={{
           vertical: "top",
           horizontal: "right",
@@ -83,36 +95,43 @@ export const CalendarItem = ({ daysCount, day, hour, isToday }: Props) => {
           vertical: "top",
           horizontal: "left",
         }}
-        sx={{
-          boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.2)",
-        }}
+        elevation={0}
         PaperProps={{
           sx: {
-            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.2)",
+            border: 1,
+            borderColor: "text.disabled",
+            boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
           },
         }}
       >
         <Box
           sx={{
-            minWidth: 200,
+            width: 400,
+            maxWidth: 400,
           }}
         >
           <Box
             sx={{
-              height: 30,
-              bgcolor: "secondary.main",
-              px: 1,
+              bgcolor: "#F1F3F4",
+              px: 2,
+              py: 0.5,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              borderBottom: 1,
+              borderColor: "text.disabled",
             }}
           >
-            close
+            <IconButton onClick={onClose}>
+              <IconClose sx={{ color: "text.primary", fontSize: 16 }} />
+            </IconButton>
           </Box>
-          <Box
-            sx={{
-              p: 1,
-            }}
-          >
-            <Typography>Add event</Typography>
-          </Box>
+
+          <EventForm
+            fromDate={date}
+            startTime={(hour - 1) * 60 + (currentMinute ? currentMinute : 0)}
+            onSave={onClose}
+          />
         </Box>
       </Popover>
     </>
