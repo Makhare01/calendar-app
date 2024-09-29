@@ -53,6 +53,10 @@ export const CalendarEventItem = ({ event, period }: Props) => {
           bgcolor: "primary.main",
           boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.2)",
           borderRadius: 3,
+          ...(isLastItem && {
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 0,
+          }),
           position: "absolute",
           left: (left - 1) * CALENDAR_SIZES.width + left / 2,
           top: event.startMinute + 32 + event.startMinute / 45,
