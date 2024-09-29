@@ -1,5 +1,5 @@
 import { Box, IconButton, Popover, Typography } from "@mui/material";
-import { format, getDay } from "date-fns";
+import { format, getDay, isLastDayOfMonth } from "date-fns";
 import { useState } from "react";
 import { IconArrowBack, IconClose } from "~/app/assets/icons";
 import { CalendarEvent, Periods } from "~/lib/_types";
@@ -33,10 +33,18 @@ export const CalendarEventItem = ({ event, period }: Props) => {
   const endDay = event.to ? Number(format(event.to, "dd")) : startDay;
   const durationDays = endDay - startDay + 1;
 
-  const left = period === "WEEK" ? eventWeekStartDay : startDay;
+  const left =
+    period === "WEEK"
+      ? eventWeekStartDay === 0
+        ? 7
+        : eventWeekStartDay
+      : startDay;
   const height = event.endMinute - event.startMinute;
 
   const isDetailsPage = isEditing.isFalse && isDeleting.isFalse;
+
+  const isLastItem =
+    period === "WEEK" ? eventWeekStartDay === 0 : isLastDayOfMonth(event.from);
 
   return (
     <>
@@ -45,10 +53,16 @@ export const CalendarEventItem = ({ event, period }: Props) => {
           bgcolor: "primary.main",
           boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.2)",
           borderRadius: 3,
+          ...(isLastItem && {
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 0,
+          }),
           position: "absolute",
           left: (left - 1) * CALENDAR_SIZES.width + left / 2,
           top: event.startMinute + 32 + event.startMinute / 45,
-          width: CALENDAR_SIZES.width * durationDays - 30,
+          width: isLastItem
+            ? CALENDAR_SIZES.width - 30
+            : CALENDAR_SIZES.width * durationDays - 30,
           minHeight: height,
           maxHeight: height,
           px: 1,
@@ -57,18 +71,23 @@ export const CalendarEventItem = ({ event, period }: Props) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           cursor: "pointer",
         }}
         onClick={(event) => {
           setAnchorEl(event.currentTarget);
         }}
       >
-        <Typography variant="caption" color="white" fontWeight={500}>
+        <Typography
+          variant="caption"
+          color="white"
+          fontWeight={500}
+          sx={{ textWrap: "nowrap" }}
+        >
           {event.title}
         </Typography>
 
-        <Typography variant="body2" color="white">
+        <Typography variant="body2" color="white" sx={{ textWrap: "nowrap" }}>
           {event.description}
         </Typography>
       </Box>
