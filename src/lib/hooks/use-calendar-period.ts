@@ -6,13 +6,17 @@ import {
   startOfMonth,
   startOfWeek,
 } from "date-fns";
-
-type Periods = "WEEK" | "MONTH";
+import { Periods } from "../_types";
 
 export type CalendarPeriod = {
   date: string;
   dayOfWeek: string;
   day: number;
+};
+
+type DatePeriods = {
+  startDate: Date;
+  endDate: Date;
 };
 
 type Args = {
@@ -21,7 +25,7 @@ type Args = {
 
 export const useCalendarPeriod = ({
   period,
-}: Args): { dates: Array<CalendarPeriod> } => {
+}: Args): { dates: Array<CalendarPeriod>; periods: DatePeriods } => {
   const currentDate = new Date();
 
   const weekStart = startOfWeek(currentDate, { weekStartsOn: 1 });
@@ -41,5 +45,11 @@ export const useCalendarPeriod = ({
     day: Number(format(day, "dd")),
   }));
 
-  return { dates: daysWithWeekInfo };
+  return {
+    dates: daysWithWeekInfo,
+    periods: {
+      startDate: period === "WEEK" ? weekStart : monthStart,
+      endDate: period === "WEEK" ? weekEnd : monthEnd,
+    },
+  };
 };
