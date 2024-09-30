@@ -1,50 +1,51 @@
-# React + TypeScript + Vite
+# Calendar app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a calendarapplication with following functionalities
 
-Currently, two official plugins are available:
+- Add calendar event
+- View already added event in calendar
+- Edit/Delete existing event
+- See calendar week or month view
+- Filter calendar events by guests list
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Components
 
-## Expanding the ESLint configuration
+- Calendar - list of all eventsin selected date range
+- Calendar Period select, options: Week, Month
+- Add event form, by clicking in a specific area of calendar, event adding form appears where user should fill following information: - Event title - Event description - Start date (prefilled according where user adding event) - End date - Start time (prefilled according where user adding event) - End time - Guests (multiple select with list of available users)
+- Event details popup, by clicking on a specific event, event details popup appears where is all detailed information regarding event
+- Edit event form, from event details popup user can either edit or delete event. By clicking edit button edit event form appears with prefilled information from this event
+- Delete event popup, from event details popup user can click 'Delete event' button whic redirects to delete confirmation screen where user can delete event
+- Users list - predefined fake users list with checkboxes, by selecting specific (or all) user(s) calendar events will be filtered by these users
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Used tools and frameworks
 
-- Configure the top-level `parserOptions` property like this:
+- Vite react
+- MUI
+- MUI Date Picker
+- Date fns
+- React hook form
+- Zod
+- Zustand
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Run project locally
+
+- Clone repository
+
+```bash
+git clone git@github.com:Makhare01/calendar-app.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- Install dependencies
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm install
 ```
+
+- Run project (it will serve project on: http://localhost:3000)
+
+```bash
+npm run dev
+```
+
+### Deployed project link (https://calendar-app-brown.vercel.app/)
